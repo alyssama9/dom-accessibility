@@ -168,22 +168,23 @@
           </p>
           <img src="static/images/big_picture.png" alt="MY ALT TEXT"/>
           <p>
-            (talk more about benchmark here + describe the figure below) ...We initiated our research by developing a comprehensive dataset using the Playwright API, allowing us to scrutinize various features critical to web accessibility...
+           We initiated our research by developing a comprehensive dataset using the Playwright API, allowing us to scrutinize various features critical to web accessibility. In order to evaluate the success of our methods, we created the first general automatic accessibility violation correction benchmark. In order to numerically measure the severity of violations, we follow regulation standards and map certain errors to one of five impact categories: critical, serious, moderate, minor, and cosmetic. Additionally, we introduce a numerical weighting to each category and calculate an aggregated severity score, which is used to evaluate the performance of a correction-proposal model. 
+
+The figure below details some of the primary dataset variables that are within our dataset. Most of these features were extracted using the Playwright API or modified to accommodate the severity score benchmark. 
           </p>
           <img src="static/images/table.png" style="display: block; margin: 0 auto; width: 1100px; padding: 70px;">
           <p>
-            (talk more about our model approach here - copy and paste from the paper if needed) ...After using identifying web accessibility violations and their details on various websites, we then employed the GPT model and prompt engineering to automatically correct these issues in the DOM, retesting with Playwright to assess the improvement in error severity...
+          In order to correct the violations, the following techniques were utilized: few-shot prompting, ReAct prompting, and Chain-of-Thought prompting. Based on the prompt engineering techniques presented above, a system was created to generate the system and user messages for the desired prompt format, which could be used to generate prompts for correcting any individual error. We generated the system and user messages by accessing specific columns of the dataset for each error and formatting the information through prompt engineering. These generated prompts were fed into our model. RegEx was used to search for the correction returned by the GPT response and return the correct HTML header. 
+
+To implement all the corrections on the entire dataset, we iterated through groups of the same URL, modifying the DOM by finding the incorrect HTML and replacing it with the corrected HTML returned by our model. By the end of the correction process, a new column in our dataframe was created, storing the corrected DOM for each URL. This process was repeated to test the other prompt engineering techniques. 
           </p>
           <img src="static/images/process.png" alt="MY ALT TEXT" style="display: block; margin: 0 auto; width: 1300px; padding: 70px;"/>
           <p>
-            (talk about how we ran the benchmark here and introduce the results - again copy from the paper if needed)
-          </p>
+           After receiving corrected DOMs for the URLs and violations in our dataset, we ran the modified DOM through Playwright again to test for remaining violations. A severity score was calculated again after the DOM corrections, and we compared scores before and after the corrections to evaluate the success of our models. The initial severity score of the benchmark was 614, with an average of 24.56 for our dataset of 25 URLs. The final severity scores decreased by 39-51%, meaning that our method is able to correct violations effectively. 
+ </p>
           <img src="static/images/results.png" alt="MY ALT TEXT" style="display: block; margin: 0 auto; width: 1300px; padding: 70px;"/>
           <p>
-            Our work has yielded significant results in that our approach was able to decrease severity scores by over 55%, with the average number of violations per URL decreasing by 41.463%.
-          </p>
-          <p>
-            (add a little more discussion + conclusion highlighting the importance of your work)
+            Our work has yielded significant results in that our approach was able to decrease severity scores by over 50%, with the average number of violations per URL decreasing by 41.463%. With our tool, accessibility becomes more inclusive for everyone. Accessibility barriers not only inhibit user experience but potentially ostracize a subset of the population from engaging fully in a digital society. This is particularly consequential in critical domains such as healthcare, where web inaccessibility can translate into a denial of vital services . Therefore, this research not only holds significance beyond the realms of digital design and Natural Language Processing, but also promotes broader dialogue on societal inclusivity and equality in the digital era.
           </p>
         </div>
       </div>
